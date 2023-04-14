@@ -1,0 +1,24 @@
+<div id="todo_list_container">
+<h1>Todos</h1>
+{% if todos %}
+  <ul>
+  {% for todo in todos %}
+    <li>
+      {{ todo.description }}
+      <form action="{% url 'delete_todo' todo.id %}" method="post" style="display:inline">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+      </form>
+      <form action="{% url 'update_todo' todo.id %}" method="post" style="display:inline">
+        {% csrf_token %}
+        <label for="new_description">New Description:</label>
+        <input type="text" name="new_description" value="{{ todo.description }}" required>
+        <button type="submit">Update</button>
+      </form>
+    </li>
+  {% endfor %}
+  </ul>
+{% else %}
+  <p>No todos available</p>
+{% endif %}
+</div>
